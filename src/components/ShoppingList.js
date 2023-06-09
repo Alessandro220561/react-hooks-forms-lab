@@ -5,7 +5,7 @@ import Item from "./Item";
 
 function ShoppingList({ items, onItemFormSubmit }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [searchedItems, setSearchedItems] = useState("");
+  const [search, setSearch] = useState("");
   
   
 
@@ -15,11 +15,11 @@ function ShoppingList({ items, onItemFormSubmit }) {
   }
 
   const handleSearchChange = (e) => {
-    setSearchedItems(e.target.value)
+    setSearch(e.target.value)
   }
 
   const itemsToDisplay = items.filter((item) => {
-    if (searchedItems) return item.name.toLowerCase().includes(searchedItems.toLowerCase())
+    if (search) return item.name.toLowerCase().includes(search.toLowerCase())
 
     if (selectedCategory === "All") return true;
 
@@ -29,7 +29,7 @@ function ShoppingList({ items, onItemFormSubmit }) {
   return (
     <div className="ShoppingList">
       <ItemForm onItemFormSubmit={ onItemFormSubmit }/>
-      <Filter onCategoryChange={handleCategoryChange} onSearchChange={ handleSearchChange } searchedItems={ searchedItems }/>
+      <Filter onCategoryChange={handleCategoryChange} onSearchChange={ handleSearchChange } search={ search }/>
       <ul className="Items">
         {itemsToDisplay.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
